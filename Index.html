@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narendra Jadaun - Creative Portfolio</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root, body.theme-premium-dark {
+            --bg-color: #0c111c;
+            --section-bg-color: #111827;
+            --card-bg-color: rgba(17, 24, 39, 0.5);
+            --text-color: #d1d5db;
+            --heading-color: #ffffff;
+            --accent-color-1: #38bdf8;
+            --accent-color-2: #818cf8;
+            --muted-text-color: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --timeline-line-color: #4b5563;
+            --accent-shadow-color: rgba(56, 189, 248, 0.4);
+            --font-main: 'Poppins', sans-serif;
+            --font-heading: 'Poppins', sans-serif;
+        }
+
+        body.theme-netflix {
+            --bg-color: #141414;
+            --section-bg-color: #000000;
+            --card-bg-color: rgba(34, 34, 34, 0.5);
+            --text-color: #e5e5e5;
+            --heading-color: #ffffff;
+            --accent-color-1: #E50914;
+            --accent-color-2: #B81D24;
+            --muted-text-color: #8c8c8c;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --timeline-line-color: #555;
+            --accent-shadow-color: rgba(229, 9, 20, 0.5);
+        }
+
+        body.theme-light {
+            --bg-color: #f9fafb;
+            --section-bg-color: #ffffff;
+            --card-bg-color: rgba(255, 255, 255, 0.7);
+            --text-color: #374151;
+            --heading-color: #111827;
+            --accent-color-1: #0ea5e9;
+            --accent-color-2: #4f46e5;
+            --muted-text-color: #6b7280;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --timeline-line-color: #d1d5db;
+            --accent-shadow-color: rgba(14, 165, 233, 0.4);
+        }
+
+        body.theme-vintage {
+            --bg-color: #F5EFE6;
+            --section-bg-color: #E8DFCA;
+            --card-bg-color: rgba(245, 239, 230, 0.8);
+            --text-color: #4A403A;
+            --heading-color: #3C3633;
+            --accent-color-1: #748E63;
+            --accent-color-2: #99A98F;
+            --muted-text-color: #7D7463;
+            --border-color: rgba(60, 54, 51, 0.2);
+            --timeline-line-color: #A8A196;
+            --accent-shadow-color: rgba(116, 142, 99, 0.5);
+            --font-heading: 'Playfair Display', serif;
+        }
+        /* --- END THEME VARIABLES --- */
+
+        /* Base styles using variables */
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--heading-color);
+        }
+        .text-muted { color: var(--muted-text-color); }
+        .section-bg { background-color: var(--section-bg-color); }
+        .timeline-line { background-color: var(--timeline-line-color); }
+        .timeline-dot { background-color: var(--accent-color-1); border-color: var(--section-bg-color); }
+
+        .hero-bg {
+            position: relative;
+            background-image: url('https://cdn.svgator.com/images/2024/01/svgator-bird-alligator-cta.gif');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(12, 17, 28, 0.6);
+            z-index: 1;
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--accent-color-1), var(--accent-color-2), var(--accent-color-1));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            animation: gradient-pan 4s linear infinite;
+        }
+        
+        .glass-effect {
+            background: var(--card-bg-color);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-scrolled {
+            background-color: rgba(12, 17, 28, 0.6);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+        
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute;
+            width: 0; height: 2px;
+            bottom: -5px; left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color-1);
+            transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .btn-primary {
+            background-color: var(--accent-color-1);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 12px 30px var(--accent-shadow-color);
+            background-color: var(--accent-color-2);
+        }
+
+        @keyframes text-focus-in { 0% { filter: blur(12px); opacity: 0; } 100% { filter: blur(0px); opacity: 1; } }
+        @keyframes gradient-pan { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+        @keyframes subtle-glow { 0%, 100% { text-shadow: 0 0 8px var(--accent-shadow-color), 0 0 16px var(--accent-shadow-color); } 50% { text-shadow: 0 0 12px var(--accent-shadow-color), 0 0 24px var(--accent-shadow-color); } }
+        @keyframes slide-in-bottom { 0% { transform: translateY(50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+        .animate-text-focus-in { animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both; }
+        .animate-slide-in-bottom { animation: slide-in-bottom 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both; }
+
+        .service-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 0 40px var(--accent-shadow-color);
+        }
+
+        .skill-tag { background-color: rgba(120,120,120,0.2); transition: transform 0.2s ease, background-color 0.2s ease; }
+        .skill-tag:hover { transform: scale(1.08); background-color: rgba(120,120,120,0.4); }
+
+        .process-step { transition: transform 0.3s ease; }
+        .process-step:hover { transform: translateY(-10px); }
+        .process-step .process-icon { transition: transform 0.3s ease, box-shadow 0.3s ease; border: 2px solid var(--accent-color-1); color: var(--accent-color-1); }
+        .process-step:hover .process-icon { transform: scale(1.1); box-shadow: 0 0 30px var(--accent-shadow-color); }
+
+        .timeline-item:hover .timeline-content { background-color: var(--section-bg-color); }
+        .timeline-content { transition: background-color 0.3s ease; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="w-full">
+
+    <!-- HEADER / NAVIGATION -->
+    <header id="main-header" class="fixed top-0 left-0 w-full z-40 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-[var(--heading-color)]">NJ.</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="nav-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">About</a>
+                <a href="#services" class="nav-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">Services</a>
+                <a href="#experience" class="nav-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">Experience</a>
+                <a href="#portfolio" class="nav-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">Portfolio</a>
+                <a href="#contact" class="nav-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">Contact</a>
+            </div>
+            <a href="https://drive.google.com/file/d/1g88Sp-D7NriFW4f8u9GOCHWlZ42HTbxB/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-primary hidden md:block text-white font-semibold py-2 px-5 rounded-lg">Download CV</a>
+             <button id="mobile-menu-btn" class="md:hidden text-[var(--heading-color)] text-2xl z-50">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+    
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 glass-effect z-40 flex flex-col items-center justify-center space-y-8 text-2xl">
+        <a href="#about" class="mobile-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">About</a>
+        <a href="#services" class="mobile-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">Services</a>
+        <a href="#experience" class="mobile-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">Experience</a>
+        <a href="#portfolio" class="mobile-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">Portfolio</a>
+        <a href="#contact" class="mobile-link text-[var(--text-color)] hover:text-[var(--heading-color)] transition">Contact</a>
+        <a href="https://drive.google.com/file/d/1g88Sp-D7NriFW4f8u9GOCHWlZ42HTbxB/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-primary mt-4 text-white font-semibold py-3 px-8 rounded-lg">Download CV</a>
+    </div>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero" class="hero-bg min-h-screen flex items-center">
+            <div class="hero-content container mx-auto px-6 text-center">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-tight animate-text-focus-in" style="animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both, subtle-glow 4s ease-in-out infinite 1s;">
+                    Narendra Jadaun
+                </h1>
+                <p class="mt-4 text-lg sm:text-xl md:text-2xl text-gray-300 animate-slide-in-bottom" style="animation-delay: 0.5s;">
+                    Senior Graphics Designer & <span class="gradient-text">Digital Creator</span>
+                </p>
+                <a href="#portfolio" class="btn-primary mt-10 inline-block text-white font-bold py-3 px-8 rounded-lg reveal" style="transition-delay: 300ms;">
+                    View My Work
+                </a>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-20 md:py-32 section-bg">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-5 gap-8 md:gap-12 items-center">
+                    <div class="md:col-span-2 reveal">
+                        <img src="https://lh3.googleusercontent.com/d/1ATOAP0yblR7ATUGdfQ6RSzkuh9AWbzLz" alt="Narendra Jadaun" class="rounded-lg shadow-2xl w-full object-cover aspect-square">
+                    </div>
+                    <div class="md:col-span-3 reveal" style="transition-delay: 150ms;">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+                        <p class="mb-4">Experienced Graphics Designer with 6+ years of creating designs for books, logos, brochures, banners, websites, and product mockups. Skilled in Adobe Creative Suite, video editing, animation, and digital marketing.</p>
+                        <p class="mb-8">Focused on delivering creative and impactful designs that engage audiences and meet project goals.</p>
+                        <h3 class="text-2xl font-semibold mb-4">My Skills</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-tag text-sm py-2 px-4 rounded-lg">Adobe Creative Suite</span>
+                            <span class="skill-tag text-sm py-2 px-4 rounded-lg">Typography</span>
+                            <span class="skill-tag text-sm py-2 px-4 rounded-lg">Branding</span>
+                            <span class="skill-tag text-sm py-2 px-4 rounded-lg">Video Editing</span>
+                            <span class="skill-tag text-sm py-2 px-4 rounded-lg">Animation</span>
+                            <span class="skill-tag text-sm py-2 px-4 rounded-lg">UI/UX</span>
+                            <span class="skill-tag text-sm py-2 px-4 rounded-lg">Web Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CREATIVE PROCESS SECTION -->
+        <section id="process" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold">My Creative Process</h2>
+                    <p class="text-lg mt-2 text-muted">A structured approach to bring your vision to life.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                    <div class="process-step reveal"><div class="process-icon rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4"><i class="fas fa-search text-3xl"></i></div><h3 class="text-xl font-bold mb-2">1. Discover</h3><p class="text-muted">We start by understanding your goals, audience, and challenges.</p></div>
+                    <div class="process-step reveal" style="transition-delay: 150ms;"><div class="process-icon rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4"><i class="fas fa-drafting-compass text-3xl"></i></div><h3 class="text-xl font-bold mb-2">2. Design</h3><p class="text-muted">I create mockups and visual concepts based on our research.</p></div>
+                    <div class="process-step reveal" style="transition-delay: 300ms;"><div class="process-icon rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4"><i class="fas fa-cogs text-3xl"></i></div><h3 class="text-xl font-bold mb-2">3. Develop</h3><p class="text-muted">The approved designs are brought to life through code and animation.</p></div>
+                    <div class="process-step reveal" style="transition-delay: 450ms;"><div class="process-icon rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4"><i class="fas fa-rocket text-3xl"></i></div><h3 class="text-xl font-bold mb-2">4. Deliver</h3><p class="text-muted">Final assets are delivered, ensuring quality and satisfaction.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="py-20 md:py-32 section-bg">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold">What I Do</h2>
+                    <p class="text-lg mt-2 text-muted">I offer a versatile range of creative services.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="service-card glass-effect p-8 rounded-lg text-center reveal"><div class="text-4xl text-[var(--accent-color-1)] mb-4"><i class="fas fa-palette"></i></div><h3 class="text-xl font-bold mb-2">Graphics Design</h3><p class="text-muted">Visually stunning designs for branding and marketing.</p></div>
+                    <div class="service-card glass-effect p-8 rounded-lg text-center reveal" style="transition-delay: 150ms;"><div class="text-4xl text-[var(--accent-color-1)] mb-4"><i class="fas fa-film"></i></div><h3 class="text-xl font-bold mb-2">Video Editing</h3><p class="text-muted">High-quality video content for various platforms.</p></div>
+                    <div class="service-card glass-effect p-8 rounded-lg text-center reveal" style="transition-delay: 300ms;"><div class="text-4xl text-[var(--accent-color-1)] mb-4"><i class="fas fa-code"></i></div><h3 class="text-xl font-bold mb-2">Web Design</h3><p class="text-muted">Modern, responsive, and user-friendly websites.</p></div>
+                    <div class="service-card glass-effect p-8 rounded-lg text-center reveal" style="transition-delay: 450ms;"><div class="text-4xl text-[var(--accent-color-1)] mb-4"><i class="fas fa-wand-magic-sparkles"></i></div><h3 class="text-xl font-bold mb-2">Animation</h3><p class="text-muted">Engaging 2D motion graphics and animations.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE SECTION -->
+        <section id="experience" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold">My Experience</h2>
+                    <p class="text-lg mt-2 text-muted">A timeline of my professional journey.</p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div class="reveal">
+                        <img src="https://cdn.dribbble.com/userupload/21247153/file/original-11f915d14a012587bef6044799b0d9c5.gif" alt="Creative work animation" class="rounded-lg shadow-xl w-full">
+                    </div>
+                    <div class="relative max-w-3xl mx-auto lg:mx-0 reveal" style="transition-delay: 150ms;">
+                        <div class="timeline-line absolute left-3 h-full w-0.5"></div>
+                        <div class="timeline-item relative pl-12 mb-12">
+                            <div class="timeline-dot absolute left-0 top-1 w-6 h-6 rounded-full border-4"></div>
+                            <div class="timeline-content p-4 rounded-lg"><p class="text-muted">March 2020 - Present</p><h3 class="text-xl font-bold">Mitsure Technologies</h3><p class="text-[var(--accent-color-1)] mb-2">Senior Graphic Designer</p><p class="text-sm text-muted">Conceptualized and designed a wide variety of graphics materials, and delivered high-quality video editing and animation projects.</p></div>
+                        </div>
+                        <div class="timeline-item relative pl-12 mb-12">
+                            <div class="timeline-dot absolute left-0 top-1 w-6 h-6 rounded-full border-4"></div>
+                            <div class="timeline-content p-4 rounded-lg"><p class="text-muted">2018 - 2020</p><h3 class="text-xl font-bold">UBGOT It Solution Pvt. Ltd.</h3><p class="text-[var(--accent-color-1)] mb-2">Freelance/Part Time Designer</p><p class="text-sm text-muted">Created professional logos, websites, and advertisements. Managed digital marketing visuals to enhance brand visibility.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO SECTION -->
+        <section id="portfolio" class="py-20 md:py-32 section-bg">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div class="reveal text-center lg:text-left">
+                        <h2 class="text-3xl md:text-4xl font-bold">My Portfolio</h2>
+                        <p class="text-lg mt-4 mb-8 max-w-xl mx-auto lg:mx-0 text-muted">You can find a complete collection of my work on Behance, showcasing my skills across various creative fields.</p>
+                        <a href="https://www.behance.net/narendrajadaun" target="_blank" rel="noopener noreferrer" class="btn-primary inline-block text-white font-bold py-3 px-8 md:py-4 md:px-10 rounded-lg text-base md:text-lg">
+                            <i class="fab fa-behance mr-2"></i> View on Behance
+                        </a>
+                    </div>
+                    <div class="reveal" style="transition-delay: 150ms;">
+                        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/012c3a102950909.5f4412cd43c80.gif" alt="Portfolio Animation" class="rounded-lg shadow-xl w-full">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center reveal">
+                <h2 class="text-3xl md:text-4xl font-bold">Let's Connect</h2>
+                <p class="text-lg mt-2 mb-8 text-muted">Have a project in mind or just want to say hello? Get in touch!</p>
+                <a href="mailto:njadaun72@gmail.com" class="text-xl md:text-2xl gradient-text font-semibold hover:brightness-125 transition">
+                    njadaun72@gmail.com
+                </a>
+                <div class="flex justify-center gap-6 mt-8">
+                    <a href="#" class="text-muted hover:text-[var(--accent-color-1)] transition text-2xl hover:scale-110"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.behance.net/narendrajadaun" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-[var(--accent-color-1)] transition text-2xl hover:scale-110"><i class="fab fa-behance"></i></a>
+                    <a href="#" class="text-muted hover:text-[var(--accent-color-1)] transition text-2xl hover:scale-110"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-6 section-bg">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            &copy; 2024 Narendra Jadaun. All Rights Reserved.
+        </div>
+    </footer>
+    
+    <!-- THEME SWITCHER -->
+    <div id="theme-switcher" class="fixed bottom-5 right-5 z-50">
+        <button id="theme-toggle-btn" class="w-14 h-14 bg-gray-800/50 backdrop-blur-sm border border-white/10 rounded-full flex items-center justify-center text-white text-2xl shadow-lg transition-transform hover:scale-110">
+            <i class="fas fa-palette"></i>
+        </button>
+        <div id="theme-options" class="hidden absolute bottom-20 right-0 glass-effect rounded-lg p-2 shadow-xl space-y-1 w-40">
+            <button data-theme="premium-dark" class="theme-option w-full text-left px-3 py-2 rounded-md text-sm text-white hover:bg-gray-700 transition-colors">Premium Dark</button>
+            <button data-theme="netflix" class="theme-option w-full text-left px-3 py-2 rounded-md text-sm text-white hover:bg-gray-700 transition-colors">Netflix</button>
+            <button data-theme="light" class="theme-option w-full text-left px-3 py-2 rounded-md text-sm text-white hover:bg-gray-700 transition-colors">Light</button>
+            <button data-theme="vintage" class="theme-option w-full text-left px-3 py-2 rounded-md text-sm text-white hover:bg-gray-700 transition-colors">Vintage</button>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const header = document.getElementById('main-header');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const themeOptions = document.getElementById('theme-options');
+        const themeButtons = document.querySelectorAll('.theme-option');
+
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('nav-scrolled', window.scrollY > 50);
+        });
+
+        // Reveal on scroll
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(reveal => {
+                if (reveal.getBoundingClientRect().top < window.innerHeight - 100) {
+                    reveal.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuBtn.innerHTML = !isHidden ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = !isHidden ? 'hidden' : 'auto';
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // --- Theme Switcher Logic ---
+        const applyTheme = (theme) => {
+            document.body.className = ''; // Clear existing theme classes
+            document.body.classList.add(`theme-${theme}`);
+            localStorage.setItem('portfolio-theme', theme);
+        };
+        
+        themeToggleBtn.addEventListener('click', () => {
+            themeOptions.classList.toggle('hidden');
+        });
+
+        themeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const theme = button.dataset.theme;
+                applyTheme(theme);
+                themeOptions.classList.add('hidden');
+            });
+        });
+        
+        const savedTheme = localStorage.getItem('portfolio-theme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else {
+            applyTheme('premium-dark'); // Default theme
+        }
+    });
+    </script>
+</body>
+</html>
+
+
